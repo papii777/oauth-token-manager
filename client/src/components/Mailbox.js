@@ -86,8 +86,8 @@ export default function Mailbox() {
       inbox: '📥 Inbox',
       sentItems: '📤 Sent',
       drafts: '📝 Drafts',
-      deleteditems: '🗑 Deleted',
-      junkemail: '🚫 Junk',
+      deletedItems: '🗑 Deleted',
+      junkEmail: '🚫 Junk',
     };
     return icons[name] || `📁 ${name}`;
   };
@@ -113,7 +113,7 @@ export default function Mailbox() {
         <aside className="mailbox-sidebar">
           <p className="sidebar-heading">Folders</p>
           {/* Well-known folders */}
-          {['inbox', 'sentItems', 'drafts', 'deleteditems', 'junkemail'].map((f) => (
+          {['inbox', 'sentItems', 'drafts', 'deletedItems', 'junkEmail'].map((f) => (
             <button
               key={f}
               className={`folder-btn ${activeFolder === f ? 'folder-btn--active' : ''}`}

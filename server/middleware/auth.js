@@ -1,7 +1,7 @@
 /**
  * JWT authentication middleware
  *
- * Protects routes by validating the ****** in the Authorization header.
+ * Protects routes by validating the JWT token in the Authorization header.
  * The token is issued by POST /api/auth/login.
  */
 

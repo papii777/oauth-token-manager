@@ -71,8 +71,17 @@ app.use('/api/mailbox', mailboxRoutes);
 
 if (isProduction) {
   const clientBuild = path.join(__dirname, '..', 'client', 'build');
+
+  // Rate-limit the catch-all SPA route to prevent file-system DoS
+  const staticLimiter = rateLimit({
+    windowMs: 60 * 1000,
+    max: 300,
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
   app.use(express.static(clientBuild));
-  app.get('*', (req, res) => {
+  app.get('*', staticLimiter, (req, res) => {
     res.sendFile(path.join(clientBuild, 'index.html'));
   });
 }
