@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: oauth-token-manager
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: "cd server && npm install && cd ../client && npm install && npm run build"
+    startCommand: "cd server && npm start"
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: oauth-token-manager-db
+          property: connectionString
+      - key: CLIENT_ID
+        sync: false   # Set manually in Render dashboard
+      - key: CLIENT_SECRET
+        sync: false
+      - key: TENANT_ID
+        sync: false
+      - key: BOT_TOKEN
+        sync: false
+      - key: CHAT_ID
+        sync: false
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+
+databases:
+  - name: oauth-token-manager-db
+    region: oregon
+    plan: free
+    databaseName: oauthtokens
+    user: oauthuser
